@@ -1,5 +1,6 @@
 import data
 import utilities
+import spreadsheet
 
 #yesterday = str(utilities.get_yesterday_date())
 yesterday = '2020-01-04'
@@ -14,5 +15,6 @@ kcal_burned = 0
 if len(days_workouts) > 0:
     kcal_burned = data.get_kcal_for_days_workouts(days_workouts)
 
-print(str(kcal_consumed))
-print(str(kcal_burned))
+
+client = spreadsheet.create_client()
+spreadsheet.write_kcal_to_sheet(client, kcal_consumed, kcal_burned, yesterday)
