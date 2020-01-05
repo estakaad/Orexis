@@ -18,7 +18,3 @@ def write_kcal_to_sheet(client, nutri_kcal, endo_kcal, date):
     date_cell_row = cell_list[0].row
     sheet.update_acell('B' + str(date_cell_row), nutri_kcal)
     sheet.update_acell('C' + str(date_cell_row), endo_kcal)
-
-
-client = create_client()
-write_kcal_to_sheet(client, 2000, 500, '2020-01-01')
