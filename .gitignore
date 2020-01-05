@@ -104,3 +104,4 @@ venv-py3
 
 config.ini
 /.idea
+client_secret.json
