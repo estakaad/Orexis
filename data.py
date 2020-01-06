@@ -4,7 +4,8 @@ import auth
 import socket
 import uuid
 import utilities
-
+import selenium
+from selenium import webdriver
 
 config_parser = ConfigParser()
 config_parser.read('config.ini')
@@ -63,18 +64,9 @@ def get_kcal_for_days_workouts(workouts_of_day):
     return kcal
 
 
-# date must be string yyyy-mm-dd
-def get_weight(date):
-    from_date = utilities.get_previous_date(date)
-    from_date = str(utilities.date_str_to_timestamp(from_date))
-
-    until_date = utilities.get_next_date(date)
-    until_date = str(utilities.date_str_to_timestamp(until_date))
-
-    r = requests.get('https://connect.garmin.com/modern/proxy/userprofile-service/userprofile/'
-                            + 'personal-information/weightWithOutbound/filterByDay?from='
-                            + from_date + '&until=' + until_date + '99999')
-
-    return print(r)
-
-get_weight('2020-01-05')
+def get_weight():
+    session_id = config_parser.get('Garmin', 'sessionid')
+    cookies = {'SESSIONID' : session_id}
+    garmin_url = 'https://connect.garmin.com/modern/proxy/userprofile-service/userprofile/personal-information/weightWithOutbound/'
+    r = requests.get(garmin_url, cookies=cookies)
+    return r.json()
