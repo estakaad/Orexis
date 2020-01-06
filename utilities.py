@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 
 def get_yesterday_date():
@@ -8,6 +8,14 @@ def get_yesterday_date():
 def iso_date_to_yyyymmdd(date):
     date = date.split()
     return date[0]
+
+
+def date_to_timestamp(date):
+    return int(datetime.datetime.strptime(date, "%Y-%m-%d").timestamp())
+
+
+def timestamp_to_date(timestamp):
+    return datetime.date.fromtimestamp(timestamp)
 
 
 def get_list_of_dates(start_date, end_date):
