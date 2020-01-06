@@ -6,7 +6,7 @@ import time
 
 
 def update_sheet():
-    dates = utilities.get_list_of_dates('2020-01-05', '2020-01-05')
+    dates = utilities.get_list_of_dates(utilities.get_yesterday_date(), utilities.get_yesterday_date())
 
     for date in dates:
         kcal_consumed = data.get_consumed_kcal(date)
@@ -20,7 +20,6 @@ def update_sheet():
 
         client = spreadsheet.create_client()
         spreadsheet.write_kcal_to_sheet(client, kcal_consumed, kcal_burned, date)
-
 
 schedule.every().day.at('09:00').do(update_sheet)
 

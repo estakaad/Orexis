@@ -4,8 +4,10 @@ import auth
 import socket
 import uuid
 
+
 config_parser = ConfigParser()
 config_parser.read('config.ini')
+
 
 def get_consumed_kcal(date):
     bearer_token = config_parser.get('Nutridata', 'token')
