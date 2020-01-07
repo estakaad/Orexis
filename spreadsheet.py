@@ -9,7 +9,7 @@ def create_client():
     return gspread.authorize(creds)
 
 
-def write_kcal_to_sheet(client, nutri_kcal, endo_kcal, date):
+def write_data_to_sheet(client, nutri_kcal, endo_kcal, weight, fat, water, bone, muscle, date):
 
     sheet = client.open("Nutridata_Endomondo").sheet1
     cell_list = sheet.findall(date)
@@ -17,3 +17,8 @@ def write_kcal_to_sheet(client, nutri_kcal, endo_kcal, date):
     date_cell_row = cell_list[0].row
     sheet.update_acell('B' + str(date_cell_row), nutri_kcal)
     sheet.update_acell('C' + str(date_cell_row), endo_kcal)
+    sheet.update_acell('D' + str(date_cell_row), weight)
+    sheet.update_acell('E' + str(date_cell_row), fat)
+    sheet.update_acell('F' + str(date_cell_row), water)
+    sheet.update_acell('G' + str(date_cell_row), bone)
+    sheet.update_acell('H' + str(date_cell_row), muscle)

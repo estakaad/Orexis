@@ -3,6 +3,9 @@ import requests
 import auth
 import socket
 import uuid
+import utilities
+import selenium
+from selenium import webdriver
 
 config_parser = ConfigParser()
 config_parser.read('config.ini')
@@ -59,3 +62,23 @@ def get_kcal_for_days_workouts(workouts_of_day):
         kcal = kcal + workout.get('calories')
 
     return kcal
+
+
+def get_health_data():
+    session_id = config_parser.get('Garmin', 'sessionid')
+    cookies = {'SESSIONID' : session_id}
+    garmin_url = 'https://connect.garmin.com/modern/proxy/userprofile-service/userprofile/personal-information/weightWithOutbound/'
+    r = requests.get(garmin_url, cookies=cookies)
+    return r.json()
+
+
+# Get a specified type of health data from Garmin Health onn the given day
+# json keys: weight, bodyFat, bodyWater, bonemass, muscleMass
+def get_days_health_data(health_data, type, date):
+    result = 0
+    for health_parameter in health_data:
+        health_date = health_parameter['date'].split('T')
+        if health_date[0] == date:
+            result = health_data[type]
+
+    return result
