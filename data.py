@@ -80,7 +80,7 @@ def get_days_health_data(health_data, type, date):
     for health_parameter in health_data:
         health_date = health_parameter['date'].split('T')
         if health_date[0] == date:
-            result = health_data[0][type]
+            result = health_parameter[type]
 
     return result
 
