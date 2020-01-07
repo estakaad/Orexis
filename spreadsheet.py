@@ -9,7 +9,7 @@ def create_client():
     return gspread.authorize(creds)
 
 
-def write_kcal_to_sheet(client, nutri_kcal, endo_kcal, weight, fat, water, bone, muscle, date):
+def write_data_to_sheet(client, nutri_kcal, endo_kcal, weight, fat, water, bone, muscle, date):
 
     sheet = client.open("Nutridata_Endomondo").sheet1
     cell_list = sheet.findall(date)

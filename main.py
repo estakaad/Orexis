@@ -6,7 +6,7 @@ import time
 
 
 def update_sheet():
-    dates = utilities.get_list_of_dates('2020-01-05', '2020-01-07')
+    dates = utilities.get_list_of_dates('2020-01-03', '2020-01-04')
 
     for date in dates:
         kcal_consumed = data.get_consumed_kcal(date)
@@ -25,6 +25,6 @@ def update_sheet():
         muscle = data.get_days_health_data(data.get_health_data(), 'muscleMass', date)
 
         client = spreadsheet.create_client()
-        spreadsheet.write_kcal_to_sheet(client, kcal_consumed, kcal_burned, weight, fat, water, bone, muscle, date)
+        spreadsheet.write_data_to_sheet(client, kcal_consumed, kcal_burned, weight, fat, water, bone, muscle, date)
 
 update_sheet()
