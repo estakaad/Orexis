@@ -64,9 +64,19 @@ def get_kcal_for_days_workouts(workouts_of_day):
     return kcal
 
 
-def get_weight():
+def get_health_data():
     session_id = config_parser.get('Garmin', 'sessionid')
     cookies = {'SESSIONID' : session_id}
     garmin_url = 'https://connect.garmin.com/modern/proxy/userprofile-service/userprofile/personal-information/weightWithOutbound/'
     r = requests.get(garmin_url, cookies=cookies)
     return r.json()
+
+
+def get_days_weight(health_data, date):
+    for weight in health_data:
+        weight_dates = weight['date'].split('T')
+        if weight_dates[0] == date:
+            return weight['weight']
+
+
+get_days_weight(get_health_data(), '2020-01-06')
