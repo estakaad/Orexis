@@ -1,4 +1,7 @@
 from datetime import date, timedelta, datetime
+import schedule
+import time
+import data
 
 
 def date_str_to_obj(date_str):
@@ -44,3 +47,11 @@ def get_list_of_dates(start_date, end_date):
         start_date += delta
     return dates
 
+
+# Time of day as string hh:mm
+def scheduler(time_of_day):
+    schedule.every().day.at(time_of_day).do(data.update_sheet)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(30)

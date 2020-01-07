@@ -6,7 +6,7 @@ import time
 
 
 def update_sheet():
-    dates = utilities.get_list_of_dates('2020-01-05', '2020-01-05')
+    dates = utilities.get_list_of_dates('2020-01-05', '2020-01-07')
 
     for date in dates:
         kcal_consumed = data.get_consumed_kcal(date)
@@ -18,12 +18,13 @@ def update_sheet():
         if len(days_workouts) > 0:
             kcal_burned = data.get_kcal_for_days_workouts(days_workouts)
 
+        weight = data.get_days_health_data(data.get_health_data(), 'weight', date)
+        fat = data.get_days_health_data(data.get_health_data(), 'bodyFat', date)
+        water = data.get_days_health_data(data.get_health_data(), 'bodyWater', date)
+        bone = data.get_days_health_data(data.get_health_data(), 'boneMass', date)
+        muscle = data.get_days_health_data(data.get_health_data(), 'muscleMass', date)
+
         client = spreadsheet.create_client()
-        spreadsheet.write_kcal_to_sheet(client, kcal_consumed, kcal_burned, date)
+        spreadsheet.write_kcal_to_sheet(client, kcal_consumed, kcal_burned, weight, fat, water, bone, muscle, date)
 
-
-schedule.every().day.at('09:00').do(update_sheet)
-
-while True:
-    schedule.run_pending()
-    time.sleep(30)
+update_sheet()

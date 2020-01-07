@@ -72,11 +72,10 @@ def get_health_data():
     return r.json()
 
 
-def get_days_weight(health_data, date):
+# Get a specified type of health data from Garmin Health onn the given day
+# json keys: weight, bodyFat, bodyWater, bonemass, muscleMass
+def get_days_health_data(health_data, type, date):
     for weight in health_data:
         weight_dates = weight['date'].split('T')
         if weight_dates[0] == date:
-            return weight['weight']
-
-
-get_days_weight(get_health_data(), '2020-01-06')
+            return weight[type]
