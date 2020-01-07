@@ -1,12 +1,10 @@
 import data
 import utilities
 import spreadsheet
-import schedule
-import time
 
 
 def update_sheet():
-    dates = utilities.get_list_of_dates('2020-01-03', '2020-01-04')
+    dates = utilities.get_list_of_dates('2020-01-07', '2020-01-7')
 
     for date in dates:
         kcal_consumed = data.get_consumed_kcal(date)

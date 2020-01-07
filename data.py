@@ -1,3 +1,4 @@
+from selenium import webdriver
 from configparser import ConfigParser
 import requests
 import auth
@@ -79,6 +80,19 @@ def get_days_health_data(health_data, type, date):
     for health_parameter in health_data:
         health_date = health_parameter['date'].split('T')
         if health_date[0] == date:
-            result = health_data[type]
+            result = health_data[0][type]
 
     return result
+
+def get_garmin_session_from_selenium():
+    driver = webdriver.Chrome(executable_path="C://chromedriver.exe")
+    driver.get("https://connect.garmin.com/signin/")
+    driver.maximize_window()
+    driver.find_element_by_css_selector("button[id='truste-consent-button']").click()
+    driver.switch_to.frame('gauth-widget-frame-gauth-widget')
+    driver.find_element_by_id('username').send_keys(config_parser.get('Garmin', 'username'))
+    driver.find_element_by_id('password').send_keys(config_parser.get('Garmin', 'password'))
+    driver.find_element_by_id('login-remember-checkbox').click()
+    driver.find_element_by_id('login-btn-signin').click()
+    #driver.get('https://connect.garmin.com/modern/proxy/userprofile-service/userprofile/personal-information/weightWithOutbound/')
+    driver.close()
