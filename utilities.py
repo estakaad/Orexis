@@ -27,7 +27,6 @@ def iso_date_to_yyyymmdd(iso_date):
     return iso_date[0]
 
 
-# day is date object
 def date_str_to_timestamp(date_obj):
     date_time = datetime.combine(date_obj, datetime.min.time())
     return int(datetime.timestamp(date_time))
