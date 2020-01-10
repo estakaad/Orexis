@@ -4,7 +4,7 @@ import auth
 import socket
 import uuid
 from selenium import webdriver
-
+import logging
 
 config_parser = ConfigParser()
 config_parser.read('config.ini')

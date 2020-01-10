@@ -1,9 +1,13 @@
 import data
 import utilities
 import spreadsheet
+import logging
 
 
-dates = utilities.get_list_of_dates('2020-01-08', '2020-01-10')
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p',
+                    filename= utilities.current_date_and_time_as_string() + '-log.log', level=logging.INFO)
+
+dates = utilities.get_list_of_dates('2020-01-09', '2020-01-10')
 health_parameters = ['weight', 'bodyFat', 'bodyWater', 'boneMass', 'muscleMass']
 
 

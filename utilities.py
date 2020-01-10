@@ -47,6 +47,10 @@ def get_list_of_dates(start_date, end_date):
     return dates
 
 
+def current_date_and_time_as_string():
+    return datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+
+
 # Time of day as string hh:mm
 def scheduler(time_of_day):
     schedule.every().day.at(time_of_day).do(data.update_sheet)
