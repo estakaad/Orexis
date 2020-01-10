@@ -1,8 +1,12 @@
+from selenium import webdriver
 from configparser import ConfigParser
 import requests
 import auth
 import socket
 import uuid
+import utilities
+import selenium
+from selenium import webdriver
 
 
 config_parser = ConfigParser()
@@ -61,3 +65,37 @@ def get_kcal_for_days_workouts(workouts_of_day):
         kcal = kcal + workout.get('calories')
 
     return kcal
+
+
+def get_health_data():
+    session_id = config_parser.get('Garmin', 'sessionid')
+    cookies = {'SESSIONID' : session_id}
+    garmin_url = 'https://connect.garmin.com/modern/proxy/userprofile-service/userprofile/personal-information/weightWithOutbound/'
+    r = requests.get(garmin_url, cookies=cookies)
+
+    return r.json()
+
+
+# Get a specified type of health data from Garmin Health onn the given day
+# json keys: weight, bodyFat, bodyWater, bonemass, muscleMass
+def get_days_health_data(health_data, type, date):
+    result = 0
+    for health_parameter in health_data:
+        health_date = health_parameter['date'].split('T')
+        if health_date[0] == date:
+            result = health_parameter[type]
+
+    return result
+
+def get_garmin_session_from_selenium():
+    driver = webdriver.Chrome(executable_path="C://chromedriver.exe")
+    driver.get("https://connect.garmin.com/signin/")
+    driver.maximize_window()
+    #driver.find_element_by_css_selector("button[id='truste-consent-button']").click()
+    #driver.switch_to.frame('gauth-widget-frame-gauth-widget')
+    #driver.find_element_by_id('username').send_keys(config_parser.get('Garmin', 'username'))
+    #driver.find_element_by_id('password').send_keys(config_parser.get('Garmin', 'password'))
+    #driver.find_element_by_id('login-remember-checkbox').click()
+    #driver.find_element_by_id('login-btn-signin').click()
+    #driver.get('https://connect.garmin.com/modern/proxy/userprofile-service/userprofile/personal-information/weightWithOutbound/')
+    #driver.close()
