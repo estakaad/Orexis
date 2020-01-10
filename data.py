@@ -1,11 +1,8 @@
-from selenium import webdriver
 from configparser import ConfigParser
 import requests
 import auth
 import socket
 import uuid
-import utilities
-import selenium
 from selenium import webdriver
 
 

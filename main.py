@@ -3,13 +3,8 @@ import utilities
 import spreadsheet
 
 
-<<<<<<< HEAD
-def update_sheet():
-    dates = utilities.get_list_of_dates(utilities.get_yesterday_date(), utilities.get_yesterday_date())
-=======
-dates = utilities.get_list_of_dates('2020-01-09', '2020-01-09')
+dates = utilities.get_list_of_dates('2020-01-08', '2020-01-10')
 health_parameters = ['weight', 'bodyFat', 'bodyWater', 'boneMass', 'muscleMass']
->>>>>>> garmin
 
 
 def get_nutridata_info_for_spreadsheet(date):
@@ -30,9 +25,6 @@ def get_endomondo_data_for_spreadsheet(date):
     return kcal_burned
 
 
-<<<<<<< HEAD
-schedule.every().day.at('09:00').do(update_sheet)
-=======
 def get_garmin_data_for_spreadsheet(garmin_health_parameter_names, date):
     health_values = {}
 
@@ -54,6 +46,6 @@ def update_sheet(list_of_dates, garmin_health_parameter_names):
                                         health_parameters["bodyFat"], health_parameters["bodyWater"],
                                         health_parameters["boneMass"] / 1000, health_parameters["muscleMass"] / 1000,
                                         date)
->>>>>>> garmin
+
 
 update_sheet(dates, health_parameters)
